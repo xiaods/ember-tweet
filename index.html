@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tweets</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	
+	<script type="text/x-handlebars" data-template-name="application">
+		<div id="frm">
+			<b>Load Tweets for: </b>
+			{{view App.UserInputView}}
+			<button {{action loadTweets App.currentUsername}}>Go!</button>
+		</div>
+		<div id="content">
+			{{outlet tweetsContent}}
+			{{outlet usersContent}}
+		</div>
+	</script>	
+	
+	<script type="text/x-handlebars" data-template-name="users">
+		<div id="recent">
+			<h3>Recent Users</h3>
+			<ol>
+				{{#each user in controller}}
+					<li>
+						<a href="#" title="view again" {{action loadTweets user}}>{{user.username}}</a> - 
+						<a href="#" title="remove" {{action removeUser user}}>X</a>
+					</li>
+				{{/each}}
+			</ol>
+		</div>
+	</script>
+	
+	
+	<script type="text/x-handlebars" data-template-name="tweets">
+		<div id="tweets">
+			<h3>Tweets</h3>
+			<ul>
+				{{#each tweet in controller}}
+					<li>
+						<img {{bindAttr src="tweet.avatar"}}" />
+						<span>{{tweet.date}}</span>
+						<h3>{{tweet.screen_name}}</h3>
+						<p>{{tweet.text}}</p>
+					</li>
+				{{/each}}
+			</ul>
+		</div>
+	</script>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="http://cloud.github.com/downloads/wycats/handlebars.js/handlebars-1.0.rc.1.js"></script>
+	<script src="http://cloud.github.com/downloads/emberjs/ember.js/ember-1.0.pre.min.js"></script>
+	<script src="app.js"></script>
+</body>
+</html>
